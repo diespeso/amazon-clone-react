@@ -1,0 +1,21 @@
+
+.miniature-active {
+    border: 1px solid black;
+}
+
+.miniature-bar {
+    background-color: lightgrey;
+    height: 100%;
+}
+
+.focused-image-container {
+    background-color: #eeeeee;
+    text-align: center;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    height: 100%;
+}
+
+.focused-image-container img {
+    height: auto;
+}

@@ -1,24 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
 
+import { Routes, Route } from 'react-router-dom';
+
+import { HomeView } from './views/HomeView';
+import { ProfileView } from './views/ProfileView';
+import { LoginView } from './views/LoginView';
+import { ShoppingCartView } from './views/ShoppingCartView';
+import { ProductView } from './views/ProductView';
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Routes>
+    <Route path="/" element={<HomeView></HomeView>}></Route>
+    <Route path="/home" element={<HomeView></HomeView>}></Route>
+    <Route path="/profile" element={<ProfileView></ProfileView>}></Route>
+    <Route path="/login" element={<LoginView></LoginView>}></Route>
+    <Route path='/shopping-cart' element={<ShoppingCartView></ShoppingCartView>}></Route>
+    <Route path='/products' element={<ProductView></ProductView>}></Route>
+   </Routes>
   );
 }
 
