@@ -4,8 +4,12 @@ import { loginUser } from "./user.thunks";
 
 const initialState = {
     id: 0,
-    username: '',
+    name: '',
     email: '',
+    profilePicture: {
+        id: 0,
+        src: '',
+    },
 }
 
 export default createSlice({
@@ -15,7 +19,7 @@ export default createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(loginUser.fulfilled, (state, action) => {
-                return action.payload;
+                return action.payload.data;
             })
     },
 }).reducer

@@ -4,32 +4,37 @@ import { loginUser } from "../store/user/user.thunks";
 
 import { Container, Card, Button, Form, Grid } from "semantic-ui-react"
 import { useState } from "react";
+import { MainLayout } from "../layouts/MainLayot";
 
 export const LoginView = () => {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(''); // todo usar el slice
-
     const dispatch = useDispatch();
 
-    const onSubmitLogin = (_, element) => {
-        console.log(email, password);
-        dispatch(loginUser({ email, password })).then((res) => console.log(res));
-    }
+    const [inputs, setInputs] = useState({ email: '', password: '' });
+
+    const handleChange = (_e, { name, value}) => {
+        setInputs((prevState) => ({ ...prevState, [name]: value }));
+    };
+
+    const handleSubmit = () => {
+        dispatch(loginUser(inputs));
+    };
 
     return (
-        <div>
+        <MainLayout>
             <Container style={{ margin: "5%" }}>
                 <Card className="centered">
-                    <Form onSubmit={onSubmitLogin} style={{ margin: "3%"}}>
+                    <Form onSubmit={handleSubmit} style={{ margin: "3%"}}>
                         <Form.Input 
                             label="E-mail"
-                            onChange={ (_, { value}) => setEmail(value) }
+                            name="email"
+                            onChange={handleChange}
                         />
                         <Form.Input
                             label="Password"
-                            onChange={ (_, { value }) => setPassword(value) }
+                            name="password"
                             type="password"
+                            onChange={handleChange}
                         />
                         <Grid>
                             <Grid.Row centered columns={3}>
@@ -39,6 +44,6 @@ export const LoginView = () => {
                     </Form>
                 </Card>
             </Container>
-        </div>
+        </MainLayout>
     )
 }

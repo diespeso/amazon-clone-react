@@ -1,22 +1,41 @@
-import { Grid, Container } from "semantic-ui-react";
-import { useState } from "react";
+import { Grid, Container, Dimmer, Loader } from "semantic-ui-react";
+import { useState, useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
 
 import './productImageGallery.css';
+import { setMainImage } from "../../store/product/product.thunks";
 
 export const ProductImageGallery = (props) => {
 
-    const { images = [] } = props;
-    const [currentFocusImage, setCurrentFocusImage] = useState(images[0] ?? '');
+    const dispatch = useDispatch();
+
+    const product = useSelector((state) => state.product);
+    const { images } = product.data;
+    const { loading } = product;
+
+    /*
+    useEffect(() => {
+        if (!loading) {
+            dispatch(setMainImage(images[0]));
+        }
+    }, [dispatch, loading]);
+    */
 
     const onMiniatureHover = (e) => {
         const target = e.currentTarget;
         target.classList.toggle('miniature-active');
-        console.log(target.getAttribute('key'), target.getAttribute('data-key'));
-        setCurrentFocusImage(target.src);
+        dispatch(setMainImage({ src: target.src})); // cambiar a usar el obj completo
     }
 
     const onMiniatureUnhover = (e) => {
         e.currentTarget.classList.remove('miniature-active');
+    }
+
+    if (loading) {
+        return (
+            <Loader active />
+        )
     }
 
     return (
@@ -26,7 +45,7 @@ export const ProductImageGallery = (props) => {
                     <Grid.Column width={2} className={'miniature-bar'}>
                         {images.map((image,  i) => {
                             return <img
-                                src={image}
+                                src={image.src}
                                 key={i}
                                 data-key={i}
                                 style={{marginTop: '5%'}}
@@ -36,7 +55,7 @@ export const ProductImageGallery = (props) => {
                         })}
                     </Grid.Column>
                     <Grid.Column width={14}  className={'focused-image-container'}>
-                        <img src={currentFocusImage}/>
+                        <img src={product.data.currentFocusImage.src}/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

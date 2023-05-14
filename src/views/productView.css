@@ -1,0 +1,17 @@
+.product-review-container {
+    background-color: lightgreen;
+    height: 50vh;
+}
+
+#btnLogin {
+    background-color: greenyellow;
+    justify-content: center;
+    margin: 0 auto;
+    display: block;
+}
+
+.profileImageBig {
+    padding: 10%;
+    border: 1px solid rgba(0, 0,0, 0.2);
+    border-radius: 3px;
+}

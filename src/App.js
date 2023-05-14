@@ -17,7 +17,8 @@ function App() {
     <Route path="/profile" element={<ProfileView></ProfileView>}></Route>
     <Route path="/login" element={<LoginView></LoginView>}></Route>
     <Route path='/shopping-cart' element={<ShoppingCartView></ShoppingCartView>}></Route>
-    <Route path='/products' element={<ProductView></ProductView>}></Route>
+    <Route path='/products/:product_id' element={<ProductView></ProductView>}></Route>
+    <Route path='/product-mock' element={<ProductView></ProductView>}></Route>
    </Routes>
   );
 }
