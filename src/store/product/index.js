@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getProductById, setMainImage } from "./product.thunks";
+import { getProductById, setMainImage, getCategoriesByProductId } from "./product.thunks";
 
 /*
 const initialState = {
@@ -22,6 +22,7 @@ const initialState = {
             id: 0,
             src: ''
         },
+        categories: [],
     },
     loading: true,
 };
@@ -35,8 +36,8 @@ export default createSlice({
             .addCase(getProductById.fulfilled, (state, action) => {
                 return {
                     data: {
-                        ...action.payload.data,
-                        currentFocusImage: action.payload.data.images[0],
+                        ...action.payload,
+                        currentFocusImage: action.payload.images?.[0] ?? null,
                     },
                     loading: false,
                 }
@@ -54,6 +55,21 @@ export default createSlice({
                         ...state.data,
                         currentFocusImage: action.payload.mainProductImage,
                     }
+                }
+            })
+            .addCase(getCategoriesByProductId.pending, (state, action) => {
+                return {
+                    ...state,
+                    loading: true
+                }
+            })
+            .addCase(getCategoriesByProductId.fulfilled, (state, action) => {
+                return {
+                    data: {
+                        ...state.data,
+                        categories: action.payload,
+                    },
+                    loading: false
                 }
             })
     }

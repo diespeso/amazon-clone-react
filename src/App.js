@@ -8,6 +8,7 @@ import { ProfileView } from './views/ProfileView';
 import { LoginView } from './views/LoginView';
 import { ShoppingCartView } from './views/ShoppingCartView';
 import { ProductView } from './views/ProductView';
+import { NewProductView } from './views/product/NewProductView';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
     <Route path="/profile" element={<ProfileView></ProfileView>}></Route>
     <Route path="/login" element={<LoginView></LoginView>}></Route>
     <Route path='/shopping-cart' element={<ShoppingCartView></ShoppingCartView>}></Route>
+    <Route path='/products/new' element={<NewProductView></NewProductView>}></Route>
     <Route path='/products/:product_id' element={<ProductView></ProductView>}></Route>
     <Route path='/product-mock' element={<ProductView></ProductView>}></Route>
    </Routes>

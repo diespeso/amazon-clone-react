@@ -7,7 +7,7 @@ export const getReviewListFromProduct = createAsyncThunk(
     async (product_id) => {
 
         // mock
-        return {
+        /*return {
             success: true,
             message: 'mock-up message',
             data: [
@@ -49,11 +49,12 @@ export const getReviewListFromProduct = createAsyncThunk(
                 },
             ]
         }
+        */
         return fetch(`${API_URL}/products/${product_id}/product-reviews`)
             .then((response) => response.json())
             .then((json) => {
                 if (!json.error) {
-                    return json.data;
+                    return json;
                 }
                 alert('failed to fetch product-review data')
             })

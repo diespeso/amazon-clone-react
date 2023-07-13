@@ -10,9 +10,16 @@ export const ProductImageGallery = (props) => {
 
     const dispatch = useDispatch();
 
-    const product = useSelector((state) => state.product);
-    const { images } = product.data;
-    const { loading } = product;
+    const productImages = useSelector((state) => state.productImages);
+    const { data: images, loading} = productImages;
+
+    const [currentFocusedImage, setCurrentFocusedImage] = useState({
+        id: null,
+        url: images[0]?.url ?? '',
+    });
+
+    console.log(currentFocusedImage);
+
 
     /*
     useEffect(() => {
@@ -25,7 +32,11 @@ export const ProductImageGallery = (props) => {
     const onMiniatureHover = (e) => {
         const target = e.currentTarget;
         target.classList.toggle('miniature-active');
-        dispatch(setMainImage({ src: target.src})); // cambiar a usar el obj completo
+        setCurrentFocusedImage({
+            id: null, // TODO
+            url: target.src,
+        });
+        //dispatch(setMainImage({ src: target.src})); // cambiar a usar el obj completo
     }
 
     const onMiniatureUnhover = (e) => {
@@ -45,7 +56,7 @@ export const ProductImageGallery = (props) => {
                     <Grid.Column width={2} className={'miniature-bar'}>
                         {images.map((image,  i) => {
                             return <img
-                                src={image.src}
+                                src={image.url}
                                 key={i}
                                 data-key={i}
                                 style={{marginTop: '5%'}}
@@ -55,7 +66,7 @@ export const ProductImageGallery = (props) => {
                         })}
                     </Grid.Column>
                     <Grid.Column width={14}  className={'focused-image-container'}>
-                        <img src={product.data.currentFocusImage.src}/>
+                        <img src={currentFocusedImage.url}/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

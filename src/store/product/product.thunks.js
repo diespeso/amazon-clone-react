@@ -14,7 +14,7 @@ export const setMainImage = createAction('product/setMainImage', (mainProductIma
 
 export const getProductById = createAsyncThunk(
     'product/show',
-    async (id) => {
+    /*async (id) => {
         // mock
         return {
             success: true,
@@ -35,14 +35,44 @@ export const getProductById = createAsyncThunk(
 									}
                 ],
             }
-        }
+        }*/
+    async (id) => {
         return fetch(`${API_URL}/products/${id}`)
-            .then((response) => response.json())
-            .then((json) => {
+        .then((response) => response.json())
+        .then((json) => {
+            if (!json.error) {
+                return json.data;
+            }
+            alert('failed to fetch product data')
+        });
+    },
+)
+
+export const getCategoriesByProductId = createAsyncThunk(
+    'product/getCategories',
+    async (id) => {
+        return fetch(`${API_URL}/products/${id}/categories`)
+            .then(response => response.json())
+            .then(json => {
                 if (!json.error) {
                     return json.data;
                 }
-                alert('failed to fetch product data')
-            });
+            })
     }
 )
+
+export const createProduct = createAsyncThunk(
+    'product/create',
+    async (product) => {
+        return fetch(`${API_URL}/products`, {
+            method: 'POST',
+            body: JSON.stringify(product),
+        }).then((response) => response.json())
+        .then((json) => {
+            if(!json.error) {
+                return json.data;
+            }
+            alert('failed to post product');
+        });
+    }
+);

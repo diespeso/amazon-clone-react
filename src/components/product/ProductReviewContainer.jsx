@@ -1,4 +1,4 @@
-import { Card, Container, Loader } from "semantic-ui-react";
+import { Card, Container, Loader, Icon } from "semantic-ui-react";
 
 import { NewReviewContainer } from "./NewReviewContainer";
 
@@ -12,7 +12,7 @@ import './productReviewContainer.css';
 
 export const ProductReviewContainer = (props) => {
 
-    const dispatch = useDispatch();
+    /*const dispatch = useDispatch();
     const reviewList = useSelector((state) => state.reviewList);
     const { loading } = reviewList;
 
@@ -23,15 +23,21 @@ export const ProductReviewContainer = (props) => {
         dispatch(getReviewListFromProduct(product_id));
     }, [])
 
-    console.log(loading);
+    */
 
-    const reviewListRender = reviewList.data.map((reviewObj, i) => {
+    const reviewList = useSelector((state) => state.reviewList);
+
+    const { loading, count, average } = reviewList;
+
+    const reviewListRender = reviewList.list?.map((reviewObj, i) => {
         return (
             <Card fluid key={i}>
 
                 <Card.Header>
                     <div style={{ marginLeft: '1%', marginRight: '1%', width:'20%', display: 'inline'}}>
-                        {[...Array(reviewObj.rate)].map((_, i) => (<span key={i}>★</span>))}
+                        {[...Array(reviewObj.score)].map((_, i) => {
+													return <Icon name='star' key={i}></Icon>
+												})}
                     </div>
                     <h4 style={{ display: 'inline'}}>{reviewObj.title}</h4>
                 </Card.Header>
@@ -46,6 +52,10 @@ export const ProductReviewContainer = (props) => {
         <Card>
             <Container className={props.className}>
                 {loading ? <Loader  active/> : reviewListRender}
+            </Container>
+            <Container>
+                reviews : {count}
+                promedio: {average}
             </Container>
             <NewReviewContainer></NewReviewContainer>
         </Card>

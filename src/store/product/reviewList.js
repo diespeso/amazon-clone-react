@@ -4,7 +4,9 @@ import { getReviewListFromProduct } from "./reviewList.thunks";
 
 
 const initialState = {
-    data: [],
+    list: [],
+    count: 0,
+    average: 0.0,
     loading: true,
 };
 
@@ -17,7 +19,9 @@ export default createSlice({
             .addCase(getReviewListFromProduct.fulfilled, (state, action) => {
                 return {
                     ...state,
-                    data: action.payload.data,
+                    list: action.payload.data,
+                    average: action.payload.info.average,
+                    count: action.payload.info.count,
                     loading: false,
                 }
             })
